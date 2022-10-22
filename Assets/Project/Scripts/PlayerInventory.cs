@@ -1,28 +1,53 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] private Transform handcuffInventoryTransform;
+    public int NumberOfHandcuffs { get { return handcuffs.Count; } }
+
+    [SerializeField] private Transform handcuffContainer;
     [SerializeField] private Vector3 afterpickupPos;
     [SerializeField] private float pickupSpeed = .1f;
     [SerializeField] private float spacing = .5f;
 
+    [SerializeField] Vector3 criminalHandcuffPos;
+
     private List<Handcuff> handcuffs = new List<Handcuff>();
 
-    public void AddToInventory(Handcuff handcuff)
+    private void OnEnable()
     {
+        Handcuff.OnPickup += PickupHandcuff;
+        CriminalHandler.OnHandcuffCriminal += HandcuffCriminal;
+    }
+
+    private void OnDisable()
+    {
+        Handcuff.OnPickup -= PickupHandcuff;
+        CriminalHandler.OnHandcuffCriminal -= HandcuffCriminal;
+    }
+
+    public void PickupHandcuff(Handcuff handcuff)
+    {
+        handcuff.ChangeState(HandcuffState.InBackpack);
         handcuffs.Add(handcuff);
-        handcuff.transform.parent = handcuffInventoryTransform;
+        handcuff.transform.parent = handcuffContainer;
 
         StartCoroutine(PlayPickupAnimation(handcuff, new Vector3(0, handcuffs.Count * spacing, 0)));
     }
 
+    private void HandcuffCriminal(Criminal criminal)
+    {
+        Handcuff lastHandcuff = handcuffs[handcuffs.Count - 1];
+        handcuffs.Remove(lastHandcuff);
+        lastHandcuff.transform.parent = criminal.transform;
+
+        StartCoroutine(PlayPickupAnimation(lastHandcuff, criminalHandcuffPos));
+    }
+
     IEnumerator PlayPickupAnimation(Handcuff handcuff, Vector3 newPosition)
     {
-        handcuff.transform.localPosition = afterpickupPos;
-
         while (handcuff.transform.localPosition != newPosition)
         {
             handcuff.transform.localPosition = Vector3.Lerp(handcuff.transform.localPosition, newPosition, pickupSpeed);
