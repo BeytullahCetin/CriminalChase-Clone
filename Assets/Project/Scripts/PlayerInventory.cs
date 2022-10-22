@@ -20,12 +20,14 @@ public class PlayerInventory : MonoBehaviour
     {
         Handcuff.OnPickup += PickupHandcuff;
         CriminalHandler.OnHandcuffCriminal += HandcuffCriminal;
+        CriminalHandler.OnArrestCriminal += PickupHandcuff;
     }
 
     private void OnDisable()
     {
         Handcuff.OnPickup -= PickupHandcuff;
         CriminalHandler.OnHandcuffCriminal -= HandcuffCriminal;
+        CriminalHandler.OnArrestCriminal -= PickupHandcuff;
     }
 
     public void PickupHandcuff(Handcuff handcuff)
@@ -41,6 +43,7 @@ public class PlayerInventory : MonoBehaviour
     {
         Handcuff lastHandcuff = handcuffs[handcuffs.Count - 1];
         handcuffs.Remove(lastHandcuff);
+        criminal.CriminalHandcuff = lastHandcuff;
         lastHandcuff.transform.parent = criminal.transform;
 
         StartCoroutine(PlayPickupAnimation(lastHandcuff, criminalHandcuffPos));

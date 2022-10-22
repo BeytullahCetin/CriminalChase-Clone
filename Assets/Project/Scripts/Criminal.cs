@@ -8,8 +8,10 @@ public enum CriminalState { Uncaught, Caught }
 public class Criminal : MonoBehaviour
 {
     public static event Action<Criminal> OnPickup = delegate { };
-    
+    public Handcuff CriminalHandcuff { get { return criminalHandcuff; } set { criminalHandcuff = value; } }
+
     private CriminalState state = CriminalState.Uncaught;
+    private Handcuff criminalHandcuff;
 
     public void ChangeState(CriminalState newState)
     {
