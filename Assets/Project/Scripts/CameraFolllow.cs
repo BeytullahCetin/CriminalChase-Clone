@@ -8,7 +8,7 @@ public class CameraFolllow : MonoBehaviour
     [SerializeField] float t = .5f;
 
     private void Start() {
-        cameraOffset = transform.position;
+        transform.position = cameraOffset + objectToFollow.position;
     }
 
     void LateUpdate()
