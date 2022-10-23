@@ -16,7 +16,7 @@ public class Handcuff : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.TryGetComponent<PlayerInventory>(out PlayerInventory playerInventory);
+        other.gameObject.TryGetComponent<PlayerHandcuffController>(out PlayerHandcuffController playerInventory);
 
         if (playerInventory != null && state == HandcuffState.OnGround)
         {

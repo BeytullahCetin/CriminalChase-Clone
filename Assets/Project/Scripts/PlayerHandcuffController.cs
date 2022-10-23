@@ -3,31 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerHandcuffController : MonoBehaviour
 {
     public int NumberOfHandcuffs { get { return handcuffs.Count; } }
 
     [SerializeField] private Transform handcuffContainer;
-    [SerializeField] private Vector3 afterpickupPos;
+    [SerializeField] private Vector3 criminalHandcuffPos;
+    //[SerializeField] private Vector3 afterpickupPos;
     [SerializeField] private float pickupSpeed = .1f;
     [SerializeField] private float spacing = .5f;
-
-    [SerializeField] Vector3 criminalHandcuffPos;
 
     private List<Handcuff> handcuffs = new List<Handcuff>();
 
     private void OnEnable()
     {
         Handcuff.OnPickup += PickupHandcuff;
-        CriminalHandler.OnHandcuffCriminal += HandcuffCriminal;
-        CriminalHandler.OnArrestCriminal += PickupHandcuff;
+        PlayerCriminalController.OnHandcuffCriminal += HandcuffCriminal;
+        PlayerCriminalController.OnArrestCriminal += PickupHandcuff;
     }
 
     private void OnDisable()
     {
         Handcuff.OnPickup -= PickupHandcuff;
-        CriminalHandler.OnHandcuffCriminal -= HandcuffCriminal;
-        CriminalHandler.OnArrestCriminal -= PickupHandcuff;
+        PlayerCriminalController.OnHandcuffCriminal -= HandcuffCriminal;
+        PlayerCriminalController.OnArrestCriminal -= PickupHandcuff;
     }
 
     public void PickupHandcuff(Handcuff handcuff)
@@ -36,7 +35,7 @@ public class PlayerInventory : MonoBehaviour
         handcuffs.Add(handcuff);
         handcuff.transform.parent = handcuffContainer;
 
-        StartCoroutine(PlayPickupAnimation(handcuff, new Vector3(0, handcuffs.Count * spacing, 0)));
+        StartCoroutine(PlayHandcuffAnimation(handcuff, new Vector3(0, handcuffs.Count * spacing, 0)));
     }
 
     private void HandcuffCriminal(Criminal criminal)
@@ -46,10 +45,10 @@ public class PlayerInventory : MonoBehaviour
         criminal.CriminalHandcuff = lastHandcuff;
         lastHandcuff.transform.parent = criminal.transform;
 
-        StartCoroutine(PlayPickupAnimation(lastHandcuff, criminalHandcuffPos));
+        StartCoroutine(PlayHandcuffAnimation(lastHandcuff, criminalHandcuffPos));
     }
 
-    IEnumerator PlayPickupAnimation(Handcuff handcuff, Vector3 newPosition)
+    IEnumerator PlayHandcuffAnimation(Handcuff handcuff, Vector3 newPosition)
     {
         while (handcuff.transform.localPosition != newPosition)
         {

@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CriminalHandler : MonoBehaviour
+public class PlayerCriminalController : MonoBehaviour
 {
     public static event Action<Criminal> OnHandcuffCriminal = delegate { };
     public static event Action<Handcuff> OnArrestCriminal = delegate { };
     public int NumberOfCriminals { get { return criminals.Count; } }
 
-    [SerializeField] private PlayerInventory playerInventory;
-    [SerializeField] private Transform criminalContainer;
+    [SerializeField] private PlayerHandcuffController playerHandcuffController;
 
     private List<Criminal> criminals = new List<Criminal>();
 
@@ -26,7 +25,7 @@ public class CriminalHandler : MonoBehaviour
 
     public void HandcuffCriminal(Criminal criminal)
     {
-        if (playerInventory.NumberOfHandcuffs == 0)
+        if (playerHandcuffController.NumberOfHandcuffs == 0)
             return;
 
         criminal.ChangeState(CriminalState.Caught);

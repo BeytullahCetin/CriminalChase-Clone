@@ -172,8 +172,8 @@ GameObject:
   - component: {fileID: 372767298}
   - component: {fileID: 372767296}
   - component: {fileID: 372767297}
-  - component: {fileID: 372767300}
-  - component: {fileID: 372767301}
+  - component: {fileID: 1208420214}
+  - component: {fileID: 1208420215}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -326,7 +326,7 @@ MonoBehaviour:
   characterController: {fileID: 372767296}
   moveSpeed: 5
   rotateSpeed: 10
---- !u!114 &372767300
+--- !u!114 &1208420214
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -335,15 +335,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8745057169474848633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae3a051f6c63f404e99bafc3c0629e85, type: 3}
+  m_Script: {fileID: 11500000, guid: 4886dfefd4d2db44597c27f5423deba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   handcuffContainer: {fileID: 1809199547}
-  afterpickupPos: {x: 0, y: 0, z: 0}
-  pickupSpeed: 0.05
+  criminalHandcuffPos: {x: 0, y: 1, z: 0.75}
+  pickupSpeed: 0.1
   spacing: 0.5
-  criminalHandcuffPos: {x: 0, y: 0, z: 0}
---- !u!114 &372767301
+--- !u!114 &1208420215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -352,11 +351,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8745057169474848633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f4c70983d278d4bbc79c76c2870202, type: 3}
+  m_Script: {fileID: 11500000, guid: 62eb426bc3012464e9c6f9cb3165478d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 372767300}
-  criminalContainer: {fileID: 944528431}
+  playerHandcuffController: {fileID: 1208420214}
 --- !u!1 &8745057170221409170
 GameObject:
   m_ObjectHideFlags: 0
