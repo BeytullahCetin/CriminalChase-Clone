@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerCriminalController : MonoBehaviour
 {
+    // PlayerHandcuffController observes these two events
     public static event Action<Criminal> OnHandcuffCriminal = delegate { };
-    public static event Action<Handcuff> OnArrestCriminal = delegate { };
+    public static event Action<Criminal> OnArrestCriminal = delegate { };
+
     public int NumberOfCriminals { get { return criminals.Count; } }
 
     [SerializeField] private PlayerHandcuffController playerHandcuffController;
@@ -22,6 +24,8 @@ public class PlayerCriminalController : MonoBehaviour
         Criminal.OnPickup -= HandcuffCriminal;
     }
 
+    //When Player touches the criminal this method called. 
+    //This method only contains criminal related codes.
     public void HandcuffCriminal(Criminal criminal)
     {
         if (playerHandcuffController.NumberOfHandcuffs == 0)
@@ -34,15 +38,18 @@ public class PlayerCriminalController : MonoBehaviour
         OnHandcuffCriminal(criminal);
     }
 
-    public void Arrest()
+    //When Player enters the prison area this method called. 
+    //This method only contains criminal related codes.
+    public void ArrestCriminal()
     {
         if (NumberOfCriminals == 0)
             return;
 
         Criminal lastCriminal = criminals[criminals.Count - 1];
-        OnArrestCriminal(lastCriminal.CriminalHandcuff);
         criminals.Remove(lastCriminal);
         lastCriminal.gameObject.SetActive(false);
         lastCriminal.objectToFollow = null;
+        
+        OnArrestCriminal(lastCriminal);
     }
 }

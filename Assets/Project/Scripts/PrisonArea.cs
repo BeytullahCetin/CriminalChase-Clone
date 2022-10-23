@@ -20,11 +20,13 @@ public class PrisonArea : MonoBehaviour
         }
     }
 
+    //When player enters the arrest area this coroutine starts.
+    //If this wasn't coroutine all criminals arrested instantly. 
     IEnumerator StartArrest()
     {
         while (isInsidePrisonArea)
         {
-            criminalHandler.Arrest();
+            criminalHandler.ArrestCriminal();
             yield return new WaitForSeconds(arrestTime);
         }
     }

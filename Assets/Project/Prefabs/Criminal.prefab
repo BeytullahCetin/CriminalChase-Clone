@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToFollow: {fileID: 0}
   followSpeed: 0.01
-  followDistance: 2
+  followDistance: 1
 --- !u!1 &2903961632678287170
 GameObject:
   m_ObjectHideFlags: 0

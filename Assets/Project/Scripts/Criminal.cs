@@ -5,6 +5,7 @@ public enum CriminalState { Uncaught, Caught }
 
 public class Criminal : MonoBehaviour
 {
+    // PlayerCriminalController observes this event
     public static event Action<Criminal> OnPickup = delegate { };
     public Handcuff CriminalHandcuff { get { return criminalHandcuff; } set { criminalHandcuff = value; } }
 

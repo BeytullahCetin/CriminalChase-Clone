@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
         characterController.Move(moveVector * moveSpeed * Time.deltaTime);
     }
 
+    //I have used new Input Sytem, It is event based sytem thus Unity not check inputs in update.
     public void GetMovementInput(InputAction.CallbackContext ctx)
     {
         movementInput = ctx.ReadValue<Vector2>();

@@ -2361,8 +2361,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prison
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1153666954, guid: a9602a12800afc241a4aa170bbe6668a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9602a12800afc241a4aa170bbe6668a, type: 3}
 --- !u!4 &6398297306422810543 stripped
 Transform:
