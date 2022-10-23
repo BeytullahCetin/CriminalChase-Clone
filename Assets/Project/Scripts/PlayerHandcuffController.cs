@@ -9,7 +9,8 @@ public class PlayerHandcuffController : MonoBehaviour
 
     [SerializeField] private Transform handcuffContainer;
     [SerializeField] private Vector3 criminalHandcuffPos;
-    //[SerializeField] private Vector3 afterpickupPos;
+    [SerializeField] private Vector3 criminalHandcuffRot;
+    [SerializeField] private Vector3 afterpickupPos;
     [SerializeField] private float pickupSpeed = .1f;
     [SerializeField] private float spacing = .5f;
 
@@ -35,7 +36,7 @@ public class PlayerHandcuffController : MonoBehaviour
         handcuffs.Add(handcuff);
         handcuff.transform.parent = handcuffContainer;
 
-        StartCoroutine(PlayHandcuffAnimation(handcuff, new Vector3(0, handcuffs.Count * spacing, 0)));
+        StartCoroutine(PlayHandcuffAnimation(handcuff, new Vector3(0, handcuffs.Count * spacing, 0), Quaternion.identity));
     }
 
     private void HandcuffCriminal(Criminal criminal)
@@ -45,15 +46,17 @@ public class PlayerHandcuffController : MonoBehaviour
         criminal.CriminalHandcuff = lastHandcuff;
         lastHandcuff.transform.parent = criminal.transform;
 
-        StartCoroutine(PlayHandcuffAnimation(lastHandcuff, criminalHandcuffPos));
+        StartCoroutine(PlayHandcuffAnimation(lastHandcuff, criminalHandcuffPos, Quaternion.Euler(criminalHandcuffRot)));
     }
 
-    IEnumerator PlayHandcuffAnimation(Handcuff handcuff, Vector3 newPosition)
+    IEnumerator PlayHandcuffAnimation(Handcuff handcuff, Vector3 newPosition, Quaternion newRotation)
     {
+        handcuff.transform.position += afterpickupPos;
+
         while (handcuff.transform.localPosition != newPosition)
         {
             handcuff.transform.localPosition = Vector3.Lerp(handcuff.transform.localPosition, newPosition, pickupSpeed);
-            handcuff.transform.localRotation = Quaternion.Lerp(handcuff.transform.localRotation, Quaternion.identity, pickupSpeed);
+            handcuff.transform.localRotation = Quaternion.Lerp(handcuff.transform.localRotation, newRotation, pickupSpeed);
 
             yield return null;
         }
