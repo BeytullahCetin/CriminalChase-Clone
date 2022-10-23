@@ -30,8 +30,9 @@ public class CriminalHandler : MonoBehaviour
             return;
 
         criminal.ChangeState(CriminalState.Caught);
+        criminal.objectToFollow = criminals.Count == 0 ? this.gameObject.transform : criminals[criminals.Count - 1].transform;
         criminals.Add(criminal);
-        criminal.transform.parent = criminalContainer;
+        //criminal.transform.parent = criminalContainer;
         OnHandcuffCriminal(criminal);
     }
 
@@ -44,5 +45,6 @@ public class CriminalHandler : MonoBehaviour
         OnArrestCriminal(lastCriminal.CriminalHandcuff);
         criminals.Remove(lastCriminal);
         lastCriminal.gameObject.SetActive(false);
+        lastCriminal.objectToFollow = null;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PrisonController : MonoBehaviour
 {
+    [SerializeField] private float arrestTime = .1f;
+
     private bool isInsidePrisonArea = false;
     private CriminalHandler criminalHandler;
 
@@ -24,7 +26,7 @@ public class PrisonController : MonoBehaviour
         while (isInsidePrisonArea)
         {
             criminalHandler.Arrest();
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(arrestTime);
         }
     }
 
