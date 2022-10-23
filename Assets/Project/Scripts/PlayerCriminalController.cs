@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,7 +30,7 @@ public class PlayerCriminalController : MonoBehaviour
         criminal.ChangeState(CriminalState.Caught);
         criminal.objectToFollow = criminals.Count == 0 ? this.gameObject.transform : criminals[criminals.Count - 1].transform;
         criminals.Add(criminal);
-        //criminal.transform.parent = criminalContainer;
+
         OnHandcuffCriminal(criminal);
     }
 

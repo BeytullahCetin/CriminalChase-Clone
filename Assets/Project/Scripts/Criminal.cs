@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum CriminalState { Uncaught, Caught }
@@ -42,7 +40,6 @@ public class Criminal : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, objectToFollow.transform.position, followSpeed);
         transform.LookAt(objectToFollow);
     }
-
 
     private void Update()
     {
