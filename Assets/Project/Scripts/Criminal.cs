@@ -35,14 +35,18 @@ public class Criminal : MonoBehaviour
 
     void Follow()
     {
+        if (objectToFollow == null)
+            return;
+
         if (Vector3.Distance(transform.position, objectToFollow.position) > followDistance)
             transform.position = Vector3.Lerp(transform.position, objectToFollow.transform.position, followSpeed);
+        transform.LookAt(objectToFollow);
     }
 
 
     private void Update()
     {
-        if (objectToFollow != null)
-            Follow();
+        Follow();
+
     }
 }
